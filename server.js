@@ -1,5 +1,7 @@
 const express = require('express')
 const mongoose=require("mongoose")
+const cors=require("cors")
+const TroubleModel=require("./models/Troublemodel")
 require('dotenv').config()
 const app = express()
 const router=require('./routes')
@@ -15,6 +17,7 @@ db.once('open', ()=>{
 })
 
 app.use(express.json())
+app.use(cors())
 app.use("/",router)
 
 app.get("/",(req, res)=>{
@@ -25,6 +28,12 @@ app.get("/",(req, res)=>{
     }
 })
 
-app.listen(3000, ()=>{
-    console.log("Server is running at local host : 3000")
+app.get("/troubles", (req, res)=>{
+    TroubleModel.find()
+    .then((troubles)=>res.json(troubles))
+    .catch((error)=>res.json(error))
+})
+
+app.listen(4000, ()=>{
+    console.log("Server is running at local host : 4000")
 })
