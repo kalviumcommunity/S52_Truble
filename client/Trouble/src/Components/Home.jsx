@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
-import data from "./data.json"
 
 const Home=()=>{
     const [troubles, setTroubles] = useState([])
