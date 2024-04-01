@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from "axios"
+import data from "./data.json"
 
 const Home=()=>{
     const [troubles, setTroubles] = useState([])
@@ -18,9 +19,9 @@ const Home=()=>{
             <p>These are the list of ways that will get you into Troubles</p>
             <ul>
                 {
-                    troubles && troubles.map((eachdata)=>{
+                    data.map((eachData)=>{
                         return(
-                            <li key={eachdata.id}>{eachdata.trouble}</li>
+                            <li key={eachData.id}>{eachData.trouble}</li>
                         )
                     })
                 }
