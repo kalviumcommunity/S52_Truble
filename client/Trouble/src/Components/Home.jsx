@@ -12,6 +12,14 @@ const Home=()=>{
         })
         .catch((error)=>console.log(error))
     }, [])
+    const handleDelete = (id) => {
+        axios.delete("http://localhost:4000/deleteTrouble/" + id)
+        .then(res => {
+          console.log(res)
+          window.location.reload()
+        })
+        .catch(err => console.log(err))
+    }
     return(
         <div>
             {console.log(troubles)}
@@ -33,6 +41,12 @@ const Home=()=>{
                                 <tr>
                                     <td>
                                         {eachTrouble.trouble}
+                                    </td>
+                                    <td>
+                                        <Link to={`/updateTrouble/${eachTrouble._id}`}>
+                                            <button>Edit</button>
+                                        </Link>
+                                        <button onClick={(e) => handleDelete(eachTrouble._id)}>Delete</button>
                                     </td>
                                 </tr>
                             )
