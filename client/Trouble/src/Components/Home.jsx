@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import {Link} from "react-router-dom"
 import axios from "axios"
 
 const Home=()=>{
@@ -16,17 +17,29 @@ const Home=()=>{
             {console.log(troubles)}
             <h1>Troubles</h1>
             <p>These are the list of ways that will get you into Troubles</p>
-            <ul>
-                {
-                    troubles && troubles.map((eachTrouble)=>{
-                        return(
-                            <li key={eachTrouble.id}>
-                                <p>{eachTrouble.trouble}</p>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            <Link to = "/createTrouble">
+                <button>Add +</button>
+            </Link>
+            <table>
+                <thead>
+                    <tr>
+                        Trouble
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        troubles.map((eachTrouble) => {
+                            return(
+                                <tr>
+                                    <td>
+                                        {eachTrouble.trouble}
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }
