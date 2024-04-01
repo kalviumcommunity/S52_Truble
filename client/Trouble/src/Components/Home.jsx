@@ -19,9 +19,11 @@ const Home=()=>{
             <p>These are the list of ways that will get you into Troubles</p>
             <ul>
                 {
-                    data.map((eachData)=>{
+                    troubles && troubles.map((eachTrouble)=>{
                         return(
-                            <li key={eachData.id}>{eachData.trouble}</li>
+                            <li key={eachTrouble.id}>
+                                <p>{eachTrouble.trouble}</p>
+                            </li>
                         )
                     })
                 }
