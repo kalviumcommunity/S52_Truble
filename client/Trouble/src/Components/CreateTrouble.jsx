@@ -5,15 +5,20 @@ import {useNavigate} from 'react-router-dom'
 
 const CreateTrouble = () => {
     const [trouble,setTrouble]=useState()
+    const [err, setErr] = useState()
     const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault()
+        setErr('')
         axios.post("http://localhost:4000/createTrouble", {trouble})
         .then((res) => {
             console.log(res)
             navigate('/')
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+            console.log(err)
+            setErr(err.response.data)
+        })
     }
   return (
     <div>
@@ -24,6 +29,7 @@ const CreateTrouble = () => {
                 <input type='text' id='trouble' placeholder='Enter a trouble' onChange={(e) => setTrouble(e.target.value)} />
             </div>
             <button type='submit'>Submit</button>
+            {err && <p>{err}</p>}
         </form>
     </div>
   )

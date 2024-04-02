@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 const UpdateTrouble = () => {
     const {id} = useParams()
+    const [err, setErr] = useState()
     const [trouble, setTrouble] = useState()
     const navigate = useNavigate()
 
@@ -18,12 +19,16 @@ const UpdateTrouble = () => {
 
     const handleUpdate = (e) => {
         e.preventDefault()
+        setErr('')
         axios.put("http://localhost:4000/updateTrouble/" + id, {trouble})
         .then((res) => {
             console.log(res)
             navigate("/")
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          setErr(err.response.data)
+        })
     }
 
   return (
@@ -35,6 +40,7 @@ const UpdateTrouble = () => {
             <input type='text' id='trouble' placeholder='Enter Trouble' value={trouble} onChange={(e) => setTrouble(e.target.value)} />
         </div>
         <button>Submit</button>
+        {err && <p>{err}</p>}
       </form>
     </div>
   );
