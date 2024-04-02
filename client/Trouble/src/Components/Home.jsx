@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react'
-import {Link} from "react-router-dom"
+import Cookies from 'js-cookie'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 
 const Home=()=>{
+    const jwtToken = Cookies.get('token')
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(jwtToken === undefined){
+        navigate("/login");
+        }
+    }, [jwtToken, navigate]);
     const [troubles, setTroubles] = useState([])
     useEffect(()=>{
         axios.get("http://localhost:4000/troubles")
@@ -20,6 +28,10 @@ const Home=()=>{
         })
         .catch(err => console.log(err))
     }
+    const handleLogout = () => {
+        Cookies.remove('token')
+        navigate("/login")
+    }
     return(
         <div>
             {console.log(troubles)}
@@ -28,6 +40,7 @@ const Home=()=>{
             <Link to = "/createTrouble">
                 <button>Add +</button>
             </Link>
+            <button onClick={handleLogout}>Logout</button>
             <table>
                 <thead>
                     <tr>
