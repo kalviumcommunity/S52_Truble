@@ -13,6 +13,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/createTrouble' element={<CreateTrouble />} />
           <Route path='/updateTrouble/:id' element={<UpdateTrouble />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
