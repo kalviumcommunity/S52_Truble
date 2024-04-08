@@ -38,6 +38,13 @@ app.get("/",(req, res)=>{
 const createPetSchema = Joi.object({
     trouble: Joi.string().required().pattern(new RegExp('^[A-za-z ]+$')).messages({
       'string.pattern.base': `"trouble" should only contain alphabetic characters`
+    }),
+    created_by: Joi.string().required()
+  })
+
+  const updatePetSchema = Joi.object({
+    trouble: Joi.string().required().pattern(new RegExp('^[A-za-z ]+$')).messages({
+      'string.pattern.base': `"trouble" should only contain alphabetic characters`
     })
   })
 
@@ -66,7 +73,7 @@ app.get("/getTrouble/:id", (req, res) => {
   
   app.put("/updateTrouble/:id", (req, res) => {
     const id = req.params.id
-    const {error} = createPetSchema.validate(req.body)
+    const {error} = updatePetSchema.validate(req.body)
     if(error){
         return res.status(400).send(error.details[0].message)
     }
