@@ -38,7 +38,8 @@ app.get("/",(req, res)=>{
 const createPetSchema = Joi.object({
     trouble: Joi.string().required().pattern(new RegExp('^[A-za-z ]+$')).messages({
       'string.pattern.base': `"trouble" should only contain alphabetic characters`
-    })
+    }),
+    created_by: Joi.string()
   })
 
 app.get("/troubles", (req, res)=>{
