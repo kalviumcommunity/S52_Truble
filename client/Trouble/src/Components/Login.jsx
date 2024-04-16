@@ -28,6 +28,7 @@ const Login = () => {
     }).then((response) => {
       if(response.data.status === true) {
         Cookies.set("token", response.data.token, {expires: 30});
+        Cookies.set("username", response.data.username, {expires: 30})
         navigate("/");
       }else{
         setErrors({ login: response.data.message });

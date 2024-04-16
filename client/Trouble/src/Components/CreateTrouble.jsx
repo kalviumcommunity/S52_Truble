@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import {useNavigate} from 'react-router-dom'
 
 
@@ -31,9 +32,9 @@ const CreateTrouble = () => {
             </div>
             <div>
                 <label htmlFor='createdBy'>Created By</label>
-                <input type='text' id='trouble' placeholder='Enter a trouble' onChange={(e) => setCreatedBy(e.target.value)} />
-            </div>
-            <button type='submit'>Submit</button>
+                <input type='text' id='createdBy' value={Cookies.get("username")} readOnly />
+             </div> 
+            <button>Submit</button>
             {err && <p>{err}</p>}
         </form>
     </div>

@@ -12,14 +12,14 @@ const Home=()=>{
         }
     }, [jwtToken, navigate]);
     const [troubles, setTroubles] = useState([])
-    const [displayTroubles, setDisplayroubles] = useState([])
+    const [displayTroubles, setDisplayTroubles] = useState([])
     const [users, setUsers] = useState([])
     useEffect(()=>{
         axios.get("http://localhost:4000/troubles")
         .then((response)=>{
             console.log(response.data)
             setTroubles(response.data)
-            setDisplayroubles(response.data)
+            setDisplayTroubles(response.data)
             const uniqueUsers = [...new Set(response.data.map(trouble => trouble.created_by))]
             setUsers(uniqueUsers)
         })
@@ -40,10 +40,10 @@ const Home=()=>{
     const handleUserChange = (e) => {
         const selectedUser = e.target.value
         if(selectedUser === "All"){
-            setDisplayroubles(troubles)
+            setDisplayTroubles(troubles)
         }else{
             const filteredList = troubles.filter(eachTrouble => eachTrouble.created_by === selectedUser)
-            setDisplayroubles(filteredList)
+            setDisplayTroubles(filteredList)
         }
     }
     return(
@@ -53,8 +53,9 @@ const Home=()=>{
             <p>These are the list of ways that will get you into Troubles</p>
             <select onChange={handleUserChange}>
                 <option value="All">All Users</option>
+                {console.log(users)}
                 {users.map((user, index) => (
-                <option key={index} value={user}>{user}</option>
+                    <option key={index} value={user}>{user}</option>
                 ))}
             </select>
             <Link to = "/createTrouble">
@@ -69,8 +70,8 @@ const Home=()=>{
                 </thead>
                 <tbody>
                     {
-                        displayTroubles.map((eachTrouble) => (
-                                <tr>
+                        displayTroubles.map((eachTrouble, index) => (
+                                <tr key={index}>
                                     <td>
                                         {eachTrouble.trouble}
                                     </td>
